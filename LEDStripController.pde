@@ -24,8 +24,10 @@ void setup() {
 }
 
 void draw() {
+	// update any changes to effects
 	updateEffects();
 
+	// add all the images from effects to the canvas buffer
 	canvas.beginDraw();
 	canvas.background(0);
 	for(Effect e : effects){
@@ -50,6 +52,11 @@ void updateEffects(){
             e.update();                        
         }
     }
+}
+
+void sendToArduino(){
+	/*This is where we will send the canvas through the serial
+	bus to the Arduino*/
 }
 
 void keyPressed(){

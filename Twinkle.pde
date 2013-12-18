@@ -7,10 +7,11 @@ class Twinkle extends Effect{
 	// speed that this ID will move through
     float[] noiseSpeed;
 
+    // sets the color of this effect
     color baseColor;
 
 	Twinkle(int _millis, color _c){
-		// run the Effect initializer
+		// run the all of the commands from the Effects parent class
 		super(_millis);
 
 		baseColor = _c;
