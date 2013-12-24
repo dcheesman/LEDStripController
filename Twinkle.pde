@@ -20,7 +20,7 @@ class Twinkle extends Effect{
         noiseSpeed = new float[LEDCount];
         for(int i=0;i<noiseID.length;i++){
             noiseID[i] = round(random(0,LEDCount));
-            noiseSpeed[i] = random(.005, .015);
+            noiseSpeed[i] = random(.015, .035);
         }
 	}
 

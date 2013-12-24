@@ -1,6 +1,6 @@
 // set the size and configuration of your LEDs
-int cols = 10;
-int rows = 6;
+int cols = 40;
+int rows = 20;
 int LEDCount = cols*rows;
 
 // ArrayList to hold the current effects
@@ -15,6 +15,9 @@ void setup() {
 
 	// makes the screen feedback accurate
 	noSmooth();
+
+	// set the frame refresh rate
+	frameRate(30);
 
 	// initialize effect array
 	effects = new ArrayList();
@@ -39,7 +42,20 @@ void draw() {
 	background(0);
 
 	// stretch the canvas image accross the screen
-	image(canvas, 0,0,width,height);	
+	image(canvas, 0,0,width,height);
+
+	debug();
+}
+
+// run to show framerate and other debug info
+void debug(){
+	fill(0,120);
+	noStroke();
+	rect(0, height-30, width/8, 10);
+
+	fill(255);
+	stroke(255);
+	text(frameRate, 10, height-20);
 }
 
 void updateEffects(){
@@ -61,9 +77,15 @@ void sendToArduino(){
 
 void keyPressed(){
     println(keyCode);
+    if(key == 's') {
+        Snow snow = new Snow(9000);
+        effects.add(snow);
+    }
+
     if(key == 't') {
     	color c = color(245, 255, 120);
         Twinkle twinkle = new Twinkle(3000, c);
         effects.add(twinkle);
     }
+
 }
