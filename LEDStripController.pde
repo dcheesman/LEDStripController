@@ -1,3 +1,7 @@
+// bring in library to talk with USB
+import processing.serial.*;
+Serial port;
+
 // set the size and configuration of your LEDs
 int cols = 40;
 int rows = 20;
@@ -18,6 +22,14 @@ void setup() {
 
 	// set the frame refresh rate
 	frameRate(30);
+
+	// set serial (USB) port. Change the number in [brackets]
+	try {
+		port = new Serial(this, Serial.list()[2], 9600);
+	} catch (Exception e) {
+		println("Problem connecting to Serial port: " + e);
+	}
+	
 
 	// initialize effect array
 	effects = new ArrayList();
@@ -44,6 +56,11 @@ void draw() {
 	// stretch the canvas image accross the screen
 	image(canvas, 0,0,width,height);
 
+	try {
+		sendToArduino();
+	} catch (Exception e) {
+		// println("Problem with sendToArduino(): " + e);
+	}
 	debug();
 }
 
@@ -73,6 +90,29 @@ void updateEffects(){
 void sendToArduino(){
 	/*This is where we will send the canvas through the serial
 	bus to the Arduino*/
+
+	// make sure the arduino gets a new line
+	port.write("\n");
+
+	// load the pixel array in the canvas object
+	canvas.loadPixels();
+
+	// send each pixel to the arduino
+	for(int i=0;i<canvas.pixels.length; i++){
+		color p = canvas.pixels[i];
+    	float nR = red(p);
+    	float nG = green(p);
+    	float nB = blue(p);
+
+	    // send space separated values: ledID red green blue \n
+	    port.write(i + " " + round(nR) + " " + round(nG) + " " + round(nB) + "\n");
+	}
+
+	// get any response from the arduino for debugging
+	int inByte = port.read();
+	if(inByte != -1){
+		println("rcvd: " + inByte);
+	}
 }
 
 void keyPressed(){
