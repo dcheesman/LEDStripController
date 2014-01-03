@@ -92,7 +92,7 @@ void sendToArduino(){
 	bus to the Arduino*/
 
 	// make sure the arduino gets a new line
-	port.write("\n");
+	// port.write("\n");
 
 	// load the pixel array in the canvas object
 	canvas.loadPixels();
@@ -104,9 +104,13 @@ void sendToArduino(){
     	float nG = green(p);
     	float nB = blue(p);
 
-	    // send space separated values: ledID red green blue \n
-	    port.write(i + " " + round(nR) + " " + round(nG) + " " + round(nB) + "\n");
+	    // send comma separated values: ledID red green blue	    
+	    String output = i + "," + round(nR) + "," + round(nG) + "," + round(nB) + ",";
+	    port.write(output);
+	    // println(output);
 	}
+	// send the End of Frame character
+	port.write("/n");
 
 	// get any response from the arduino for debugging
 	int inByte = port.read();
