@@ -2,9 +2,9 @@
 import processing.serial.*;
 Serial port;
 
-// set the size and configuration of your LEDs
-int cols = 40;
-int rows = 20;
+// set the size and configuration of your LEDs (never less that 1 on either)
+int cols = 12;
+int rows = 1;
 int LEDCount = cols*rows;
 
 // ArrayList to hold the current effects
@@ -21,7 +21,7 @@ void setup() {
 	noSmooth();
 
 	// set the frame refresh rate
-	frameRate(30);
+	frameRate(5);
 
 	// set serial (USB) port. Change the number in [brackets]
 	try {
@@ -126,6 +126,11 @@ void keyPressed(){
     	color c = color(245, 255, 120);
         Twinkle twinkle = new Twinkle(3000, c);
         effects.add(twinkle);
+    }
+
+    if(key == 'f') {    	
+        Flashes flashes = new Flashes(10000);
+        effects.add(flashes);
     }
 
 }
