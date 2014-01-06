@@ -105,12 +105,10 @@ void sendToArduino(){
     	float nB = blue(p);
 
 	    // send comma separated values: ledID red green blue	    
-	    String output = i + "," + round(nR) + "," + round(nG) + "," + round(nB) + ",";
+	    String output = i + "," + round(nR) + "," + round(nG) + "," + round(nB) + "\n";
 	    port.write(output);
 	    // println(output);
 	}
-	// send the End of Frame character
-	port.write("/n");
 
 	// get any response from the arduino for debugging
 	int inByte = port.read();
