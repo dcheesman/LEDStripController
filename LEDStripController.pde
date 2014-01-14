@@ -3,7 +3,7 @@ import processing.serial.*;
 Serial port;
 
 // set the size and configuration of your LEDs (never less that 1 on either)
-int cols = 12;
+int cols = 10;
 int rows = 1;
 int LEDCount = cols*rows;
 
@@ -21,7 +21,7 @@ void setup() {
 	noSmooth();
 
 	// set the frame refresh rate
-	frameRate(5);
+	frameRate(24);
 
 	// set serial (USB) port. Change the number in [brackets]
 	try {
@@ -91,9 +91,6 @@ void sendToArduino(){
 	/*This is where we will send the canvas through the serial
 	bus to the Arduino*/
 
-	// make sure the arduino gets a new line
-	// port.write("\n");
-
 	// load the pixel array in the canvas object
 	canvas.loadPixels();
 
@@ -105,16 +102,10 @@ void sendToArduino(){
     	float nB = blue(p);
 
 	    // send comma separated values: ledID red green blue	    
-	    String output = i + "," + round(nR) + "," + round(nG) + "," + round(nB) + "\n";
-	    port.write(output);
-	    // println(output);
+	    String output = i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB) + "\n";
+        port.write(output);
 	}
 
-	// get any response from the arduino for debugging
-	int inByte = port.read();
-	if(inByte != -1){
-		println("rcvd: " + inByte);
-	}
 }
 
 void keyPressed(){
@@ -131,7 +122,7 @@ void keyPressed(){
     }
 
     if(key == 'f') {    	
-        Flashes flashes = new Flashes(10000);
+        Flashes flashes = new Flashes(15000);
         effects.add(flashes);
     }
 
