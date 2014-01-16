@@ -13,6 +13,10 @@ ArrayList <Effect> effects;
 // Image buffer to hold pixels in
 PGraphics canvas;
 
+// Interface to pick colors for effects
+ColorPicker colorPicker;
+color selectedColor;
+
 void setup() {
 	// Size of the on-screen display
 	size(800, 600);
@@ -36,6 +40,9 @@ void setup() {
 
 	// canvas for the leds to run on
 	canvas = createGraphics(cols, rows);
+
+	colorPicker = new ColorPicker(0,0,50,50);
+	selectedColor = color(255,255,255);
 }
 
 void draw() {
@@ -55,6 +62,11 @@ void draw() {
 
 	// stretch the canvas image accross the screen
 	image(canvas, 0,0,width,height);
+
+	colorPicker.display();
+	fill(selectedColor);
+	noStroke();
+	rect(50,0,50,50);
 
 	try {
 		sendToArduino();
@@ -129,8 +141,17 @@ void keyPressed(){
     }
 
     if(key == 'c') {
-    	CircleBurst circleBurst = new CircleBurst(2000, color(255,100,100));
+    	CircleBurst circleBurst = new CircleBurst(2000, selectedColor);
     	effects.add(circleBurst);
     }
 
+}
+
+
+void mousePressed(){
+	color c = colorPicker.getColor();
+	if(c != -1){
+		selectedColor = c;	
+	}
+	println(selectedColor);
 }
