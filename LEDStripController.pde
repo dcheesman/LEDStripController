@@ -4,7 +4,7 @@ Serial port;
 
 // set the size and configuration of your LEDs (never less that 1 on either)
 int cols = 10;
-int rows = 1;
+int rows = 9;
 int LEDCount = cols*rows;
 
 // ArrayList to hold the current effects
@@ -97,9 +97,11 @@ void sendToArduino(){
 	// send each pixel to the arduino
 	for(int i=0;i<canvas.pixels.length; i++){
 		color p = canvas.pixels[i];
-    	float nR = red(p);
-    	float nG = green(p);
-    	float nB = blue(p);
+
+    	int a = (p >> 24) & 0xFF;
+		int nR = (p >> 16) & 0xFF;  // Faster way of getting red(p)
+		int nG = (p >> 8) & 0xFF;   // Faster way of getting green(p)
+		int nB = p & 0xFF; 
 
 	    // send comma separated values: ledID red green blue	    
 	    String output = i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB) + "\n";
@@ -124,6 +126,11 @@ void keyPressed(){
     if(key == 'f') {    	
         Flashes flashes = new Flashes(15000);
         effects.add(flashes);
+    }
+
+    if(key == 'c') {
+    	CircleBurst circleBurst = new CircleBurst(2000, color(255,100,100));
+    	effects.add(circleBurst);
     }
 
 }
