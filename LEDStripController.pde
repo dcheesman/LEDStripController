@@ -4,7 +4,7 @@ Serial port;
 
 // set the size and configuration of your LEDs (never less that 1 on either)
 int cols = 10;
-int rows = 9;
+int rows = 5;
 int LEDCount = cols*rows;
 
 // ArrayList to hold the current effects
@@ -109,8 +109,6 @@ void sendToArduino(){
 	// send each pixel to the arduino
 	for(int i=0;i<canvas.pixels.length; i++){
 		color p = canvas.pixels[i];
-
-    	int a = (p >> 24) & 0xFF;
 		int nR = (p >> 16) & 0xFF;  // Faster way of getting red(p)
 		int nG = (p >> 8) & 0xFF;   // Faster way of getting green(p)
 		int nB = p & 0xFF; 
@@ -119,6 +117,7 @@ void sendToArduino(){
 	    String output = i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB) + "\n";
         port.write(output);
 	}
+    port.write("\n");
 
 }
 
