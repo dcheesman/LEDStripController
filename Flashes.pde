@@ -41,7 +41,7 @@ class Flashes extends Effect{
 		float dimSpeed = .90;
 		Flash(){
 			id = floor(random(LEDCount));
-			value = 90;
+			value = 255;
 		}
 
 		void update(){

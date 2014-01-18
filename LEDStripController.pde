@@ -4,7 +4,7 @@ Serial port;
 
 // set the size and configuration of your LEDs (never less that 1 on either)
 int cols = 10;
-int rows = 1;
+int rows = 5;
 int LEDCount = cols*rows;
 
 // ArrayList to hold the current effects
@@ -12,6 +12,10 @@ ArrayList <Effect> effects;
 
 // Image buffer to hold pixels in
 PGraphics canvas;
+
+// Interface to pick colors for effects
+ColorPicker colorPicker;
+color selectedColor;
 
 void setup() {
 	// Size of the on-screen display
@@ -36,6 +40,9 @@ void setup() {
 
 	// canvas for the leds to run on
 	canvas = createGraphics(cols, rows);
+
+	colorPicker = new ColorPicker(0,0,50,50);
+	selectedColor = color(255,255,255);
 }
 
 void draw() {
@@ -55,6 +62,11 @@ void draw() {
 
 	// stretch the canvas image accross the screen
 	image(canvas, 0,0,width,height);
+
+	colorPicker.display();
+	fill(selectedColor);
+	noStroke();
+	rect(50,0,50,50);
 
 	try {
 		sendToArduino();
@@ -97,11 +109,12 @@ void sendToArduino(){
 	// send each pixel to the arduino
 	for(int i=0;i<canvas.pixels.length; i++){
 		color p = canvas.pixels[i];
-    	float nR = red(p);
-    	float nG = green(p);
-    	float nB = blue(p);
-        // send comma separated values: ledID red green blue
-        String output = "\t" + i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB);
+		int nR = (p >> 16) & 0xFF;  // Faster way of getting red(p)
+		int nG = (p >> 8) & 0xFF;   // Faster way of getting green(p)
+		int nB = p & 0xFF; 
+
+	    // send comma separated values: ledID red green blue	    
+	    String output = i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB) + "\n";
         port.write(output);
 	}
     port.write("\n");
@@ -126,4 +139,18 @@ void keyPressed(){
         effects.add(flashes);
     }
 
+    if(key == 'c') {
+    	CircleBurst circleBurst = new CircleBurst(2000, selectedColor);
+    	effects.add(circleBurst);
+    }
+
+}
+
+
+void mousePressed(){
+	color c = colorPicker.getColor();
+	if(c != -1){
+		selectedColor = c;	
+	}
+	println(selectedColor);
 }
