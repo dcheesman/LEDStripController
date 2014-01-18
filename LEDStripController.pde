@@ -100,11 +100,11 @@ void sendToArduino(){
     	float nR = red(p);
     	float nG = green(p);
     	float nB = blue(p);
-
-	    // send comma separated values: ledID red green blue	    
-	    String output = i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB) + "\n";
+        // send comma separated values: ledID red green blue
+        String output = "\t" + i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB);
         port.write(output);
 	}
+    port.write("\n");
 
 }
 
