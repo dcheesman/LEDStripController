@@ -22,14 +22,15 @@ void setup() {
 
 void loop() {
   while (Serial.available() > 0) {
-        id = Serial.parseInt();
-        rval = Serial.parseInt();
-        gval = Serial.parseInt();
-        bval = Serial.parseInt();
-
-        if (Serial.read() == '\n') {
-            leds.setPixel(id, rval, gval, bval);
+        if (Serial.peek() == '\n') {
+            Serial.read(); // get rid of the new line
             leds.show();
+        } else {
+          id = Serial.parseInt();
+          rval = Serial.parseInt();
+          gval = Serial.parseInt();
+          bval = Serial.parseInt();
+          leds.setPixel(id, rval, gval, bval);
         }
     }
 }
