@@ -144,6 +144,11 @@ void keyPressed(){
     	effects.add(circleBurst);
     }
 
+    if(key == 'w') {
+        Wipe wipe = new Wipe(2000, selectedColor);
+        effects.add(wipe);
+    }
+
 }
 
 
