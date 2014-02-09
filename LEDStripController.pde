@@ -3,8 +3,8 @@ import processing.serial.*;
 Serial port;
 
 // set the size and configuration of your LEDs (never less that 1 on either)
-int cols = 10;
-int rows = 5;
+int cols = 20;
+int rows = 8;
 int LEDCount = cols*rows;
 
 // ArrayList to hold the current effects
@@ -46,6 +46,7 @@ void setup() {
 }
 
 void draw() {
+	background(60);
 	// update any changes to effects
 	updateEffects();
 
@@ -57,11 +58,11 @@ void draw() {
 	}
 	canvas.endDraw();
 
-	// clear the previous frame
-	background(0);
-
 	// stretch the canvas image accross the screen
-	image(canvas, 0,0,width,height);
+	pushStyle();
+	imageMode(CENTER);
+	image(canvas, width/2,height/2,cols*15,rows*15);
+	popStyle();
 
 	colorPicker.display();
 	fill(selectedColor);

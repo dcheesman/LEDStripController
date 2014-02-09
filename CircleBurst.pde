@@ -5,7 +5,7 @@ class CircleBurst extends Effect{
 	color baseColor;	
 
 	float r = 1;
-	float weight = 1;
+	float weight = 2;
 	float x;
 	float y;
 

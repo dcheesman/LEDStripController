@@ -34,7 +34,7 @@ class Twinkle extends Effect{
 		super.update();
 		for(int i=0; i<noiseID.length; i++){
             // get the grayscale amount for the noise
-            float noiseAmount = noise(noiseID[i], frameCount* noiseSpeed[i]) * 100;
+            float noiseAmount = noise(noiseID[i], frameCount* noiseSpeed[i]) * 255;
             imageBuffer.pixels[i] = color(red(baseColor), green(baseColor), blue(baseColor), noiseAmount);
         }
 
