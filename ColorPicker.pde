@@ -18,9 +18,9 @@ class ColorPicker{
 		for (int i = 0; i < colorGrid.pixels.length; i++) {
 			float x = i%w; 
 			float y = floor(i/w);
-			float h = map(x,0,w,0,255);
+			float hu = map(x,0,w,0,255);
 			float s = map(y,0,h,0,255);
-			colorGrid.pixels[i] = color(h,s,255);
+			colorGrid.pixels[i] = color(hu,s,255);
 		}
 		colorGrid.updatePixels();
 		popStyle();
