@@ -149,6 +149,11 @@ void keyPressed(){
         Wipe wipe = new Wipe(2000, selectedColor);
         effects.add(wipe);
     }
+    
+    if(key == 'u') {
+        Supernova supernova = new Supernova(3000);
+        effects.add(supernova);
+    }
 
 }
 
