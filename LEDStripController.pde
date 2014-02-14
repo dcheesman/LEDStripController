@@ -149,6 +149,11 @@ void keyPressed(){
         Wipe wipe = new Wipe(2000, selectedColor);
         effects.add(wipe);
     }
+    
+    if (key == 'l') {
+      GameOfLife gameOfLife = new GameOfLife(3000, selectedColor);
+      effects.add(gameOfLife);
+    }
 
 }
 
