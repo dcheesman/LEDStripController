@@ -3,7 +3,7 @@ import processing.serial.*;
 Serial port;
 
 // set the size and configuration of your LEDs (never less that 1 on either)
-int cols = 20;
+int cols = 10;
 int rows = 8;
 int LEDCount = cols*rows;
 

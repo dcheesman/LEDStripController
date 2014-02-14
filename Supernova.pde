@@ -16,7 +16,7 @@ class Supernova extends Effect{
     imageBuffer.endDraw();
     
     imageBuffer.beginDraw();
-    imageBuffer.stroke(random(155,255),random(155,255),random(155,255));
+    imageBuffer.stroke(random(55,100),random(55,100),random(55,100));
     imageBuffer.background(0,0);
     imageBuffer.rect(x,y,w,h);
     imageBuffer.ellipse(x,y,w,h);
