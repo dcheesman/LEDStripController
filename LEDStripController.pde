@@ -33,7 +33,7 @@ void setup() {
   } catch (Exception e) {
     println("Problem connecting to Serial port: " + e);
   }
-  
+
   // initialize effect array
   effects = new ArrayList();
 
@@ -94,7 +94,7 @@ void updateEffects(){
     if (e.finished()) {
       effects.remove(i);
     } else {
-      e.update();                        
+      e.update();
     }
   }
 }
@@ -113,7 +113,7 @@ void sendToArduino(){
     int nG = (p >> 8) & 0xFF;   // Faster way of getting green(p)
     int nB = p & 0xFF; 
 
-    // send comma separated values: ledID red green blue      
+    // send comma separated values: ledID red green blue
     String output = i + "\t" + round(nR) + "\t" + round(nG) + "\t" + round(nB) + "\n";
     port.write(output);
   }
@@ -133,7 +133,7 @@ void keyPressed(){
     effects.add(twinkle);
   }
 
-  if (key == 'f') {      
+  if (key == 'f') {
     Flashes flashes = new Flashes(15000);
     effects.add(flashes);
   }
@@ -149,16 +149,22 @@ void keyPressed(){
   }
 
   if (key == 'p') {
-    // Modifying steps and zoom produces drastic variation.    
+    // Modifying steps and zoom produces drastic variation.
     Plasma plasma = new Plasma(12000, 35, 200, 200, 8);
     effects.add(plasma);
   }
+
+  if (key == 'l') {
+      GameOfLife gameOfLife = new GameOfLife(3000, selectedColor);
+      effects.add(gameOfLife);
+  }
+
 }
 
 void mousePressed(){
   color c = colorPicker.getColor();
   if(c != -1){
-    selectedColor = c;  
+    selectedColor = c;
   }
   println(selectedColor);
 }
