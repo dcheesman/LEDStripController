@@ -25,7 +25,7 @@ class Flashes extends Effect{
 				imageBuffer.beginDraw();
 				// load buffer's pixels in to pixel[] array
 				imageBuffer.loadPixels();
-				imageBuffer.pixels[f.id] = color(f.value);
+				imageBuffer.pixels[f.id] = color(255, f.value);
 				// load pixel[] array back into image
 				imageBuffer.updatePixels();
 				imageBuffer.endDraw();	
