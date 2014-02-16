@@ -2,6 +2,13 @@
 import processing.serial.*;
 Serial port;
 
+/*libraries to talk to midi devices
+to make this work go to the Sketch->Import Library->Add Library
+and add the MidiBus library*/
+
+import themidibus.*;
+MidiBus myBus;
+
 // set the size and configuration of your LEDs (never less that 1 on either)
 int cols = 40;
 int rows = 20;
@@ -42,6 +49,8 @@ void setup() {
 
   colorPicker = new ColorPicker(0,0,50,50);
   selectedColor = color(255,255,255);
+
+  myBus = new MidiBus(this, "USB Keystation 49e", -1);
 }
 
 void draw() {
@@ -143,11 +152,11 @@ void keyPressed(){
     Plasma plasma = new Plasma(12000, 35, 200, 200, 8);
     effects.add(plasma);
   } else if (key == 'l') {
-      GameOfLife gameOfLife = new GameOfLife(3000, selectedColor);
-      effects.add(gameOfLife);
+    GameOfLife gameOfLife = new GameOfLife(3000, selectedColor);
+    effects.add(gameOfLife);
   } else if (key == 'v'){
-      Flock flock = new Flock(4000, selectedColor);
-      effects.add(flock);
+    Flock flock = new Flock(4000, selectedColor);
+    effects.add(flock);
   }
 
 }

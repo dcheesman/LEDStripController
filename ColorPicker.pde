@@ -36,7 +36,7 @@ class ColorPicker{
 			if(mouseY > y && mouseY < x+h){
 				result = colorGrid.get(mouseX-x, mouseY-y);
 			}
-		} 
+		}
 		return result;
 	}
 }
