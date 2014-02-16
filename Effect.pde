@@ -22,11 +22,10 @@ class Effect{
 		// check if the effect should be over
 		if(millis()>startTime+milliseconds){
             return true;
-        } else {
-            return false;
         }
+        return false;
 	}
-	
+
 	PGraphics getBuffer(){
 		return imageBuffer;
 	}

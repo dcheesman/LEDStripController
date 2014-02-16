@@ -3,8 +3,8 @@ import processing.serial.*;
 Serial port;
 
 // set the size and configuration of your LEDs (never less that 1 on either)
-int cols = 20;
-int rows = 8;
+int cols = 40;
+int rows = 20;
 int LEDCount = cols*rows;
 
 // ArrayList to hold the current effects
@@ -125,38 +125,29 @@ void keyPressed(){
   if (key == 's') {
     Snow snow = new Snow(9000);
     effects.add(snow);
-  }
-
-  if (key == 't') {
+  } else if (key == 't') {
     color c = color(245, 255, 120);
     Twinkle twinkle = new Twinkle(3000, c);
     effects.add(twinkle);
-  }
-
-  if (key == 'f') {
+  } else if (key == 'f') {
     Flashes flashes = new Flashes(15000);
     effects.add(flashes);
-  }
-
-  if (key == 'c') {
+  } else if (key == 'c') {
     CircleBurst circleBurst = new CircleBurst(2000, selectedColor);
     effects.add(circleBurst);
-  }
-
-  if (key == 'w') {
+  } else if (key == 'w') {
     Wipe wipe = new Wipe(2000, selectedColor);
     effects.add(wipe);
-  }
-
-  if (key == 'p') {
+  } else if (key == 'p') {
     // Modifying steps and zoom produces drastic variation.
     Plasma plasma = new Plasma(12000, 35, 200, 200, 8);
     effects.add(plasma);
-  }
-
-  if (key == 'l') {
+  } else if (key == 'l') {
       GameOfLife gameOfLife = new GameOfLife(3000, selectedColor);
       effects.add(gameOfLife);
+  } else if (key == 'v'){
+      Flock flock = new Flock(4000, selectedColor);
+      effects.add(flock);
   }
 
 }
