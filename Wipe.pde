@@ -21,4 +21,11 @@ class Wipe extends Effect {
         imageBuffer.endDraw();
         xpos++;
     }
+
+    boolean finished(){
+        if(xpos>cols){
+            return true;
+        }
+        return false;
+    }
 }
